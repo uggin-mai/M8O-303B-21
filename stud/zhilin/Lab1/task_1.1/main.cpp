@@ -95,7 +95,7 @@ matrix get_inverse_matrix(matrix& matrix1) {
     return calculate_decisions(matrix1, E);
 }
 
-void print_matrix(matrix& matrix1) {
+void print_matrix(const matrix& matrix1) {
     for(const auto& vect: matrix1) {
         for (auto x: vect)
             cout << x << " ";
