@@ -2,7 +2,7 @@ name: Review Assign
 
 on:
   pull_request:
-    types: [opened, ready_for_review]
+    types: [opened, ready_for_review, reopened]
 
 jobs:
   assign:
@@ -10,5 +10,5 @@ jobs:
     steps:
       - uses: hkusu/review-assign-action@v1
         with:
-          assignees: ${{ github.actor }} # assign pull request author
           reviewers: pivovarov-mai
+          assignees: ${{ github.actor }}
