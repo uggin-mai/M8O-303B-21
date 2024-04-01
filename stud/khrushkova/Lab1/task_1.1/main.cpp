@@ -43,17 +43,18 @@ pair<vector<vector<double>>, vector<vector<double>>> LU(vector<vector<double>>& 
 }
 
 
-vector<vector<double>> calculate_decisions(vector<vector<double>>& X, vector<vector<double>>& Y, int n) {
+vector<vector<double>> calculate_result(vector<vector<double>>& X, vector<vector<double>>& Y, int n) {
     vector<vector<double>> L, U;
     tie(L, U) = LU(X, Y, n);
     vector<vector<double>> res = Y;
 
+    int m = res[0].size();
     // Ещё одна реализация формул из методички
-    for (int k=0; k<res[0].size(); k++)
+    for (int k=0; k<m; k++)
         for (int i=0; i<n; i++)
             for (int j=0; j<i; j++)
                 res[i][k] -= res[j][k]*L[i][j];
-    for (int k=0; k<res[0].size(); k++) {
+    for (int k=0; k<m; k++) {
         for (int i=n-1; i>-1; i--) {
             for (int j=i+1; j<n; j++) {
                 res[i][k] -= res[j][k]*U[i][j];
@@ -68,8 +69,9 @@ vector<vector<double>> calculate_decisions(vector<vector<double>>& X, vector<vec
 
 void write_matrix_to_file(const vector<vector<double>>& matrix, ofstream& out) {
     // Вывод матрицы в файл
-    for(int i=0; i<matrix.size(); ++i){
-        for(int j=0; j<matrix[0].size(); j++)
+    int n = matrix.size(), m = matrix[0].size();
+    for(int i=0; i<n; ++i){
+        for(int j=0; j<m; j++)
             out << matrix[i][j] << " ";
         out << endl;
     }
@@ -77,7 +79,7 @@ void write_matrix_to_file(const vector<vector<double>>& matrix, ofstream& out) {
 
 
 int main() {
-    ifstream in("../input.txt");
+    ifstream in("input.txt");
     int n; // Количество неизвестных
     in >> n;
     vector<vector<double>> X(n), Y(n);
@@ -99,7 +101,7 @@ int main() {
 
     in.close();
 
-    ofstream out("../output.txt");
+    ofstream out("output.txt");
     vector<vector<double>> L, U;
     tie(L, U) = LU(X, Y, n);
 
@@ -118,9 +120,9 @@ int main() {
 
 
     // Поиск решений
-    vector<vector<double>> decisions = calculate_decisions(X, Y, n);
-    out << endl << "Decision =" << endl;
-    write_matrix_to_file(decisions, out);
+    vector<vector<double>> result = calculate_result(X, Y, n);
+    out << endl << "Result =" << endl;
+    write_matrix_to_file(result, out);
 
 
     // Инициализация единичной матрицы
@@ -131,7 +133,7 @@ int main() {
                 E[i].push_back(0);
             else
                 E[i].push_back(1);
-    vector<vector<double>> invert = calculate_decisions(X, E, n); // Нахождение обратной матрицы
+    vector<vector<double>> invert = calculate_result(X, E, n); // Нахождение обратной матрицы
     out << endl << "Inverted =" << endl;
     write_matrix_to_file(invert, out);
 

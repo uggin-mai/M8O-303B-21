@@ -12,7 +12,7 @@ L =
 
 Determinant = 2244
 
-Decision =
+Result =
 -9 
 -7 
 -7 
