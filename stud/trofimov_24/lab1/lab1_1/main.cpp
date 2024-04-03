@@ -1,6 +1,5 @@
 #include "matrix.hpp"
 #include <vector>
-#include <vector>
 #include <cstdio>
 
 #include <iostream>
