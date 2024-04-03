@@ -9,11 +9,14 @@ using namespace std;
 using matrix = std::vector<std::vector<double> >;
 
 void print_matrix(const matrix& matrix1) {
+    std::cout <<  "[ "<<std::endl;
+
     for(const auto& vect: matrix1) {
         for (auto x: vect)
             std::cout << x << " ";
-        std::cout << endl;
+        std::cout << std::endl;
     }
+    std::cout <<  "]" << endl;
 }
 matrix getTranspose(matrix m) {
     matrix solution(m[0].size(), std::vector<double> (m.size()));
