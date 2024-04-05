@@ -75,3 +75,9 @@ def multiple_matrix(matrix1: Matrix, matrix2: Matrix) -> None | Matrix:
             res[i][j] = cntr
 
     return Matrix(res)
+
+
+def plus_matrix(matrix1: Matrix, matrix2: Matrix) -> Matrix:
+    res = [[matrix1[i][j]+matrix2[i][j] for j in range(matrix1.m)] for i in range(matrix1.n)]
+    return Matrix(res)
+
