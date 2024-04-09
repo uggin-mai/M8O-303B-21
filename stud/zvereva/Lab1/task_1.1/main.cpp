@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <locale>
 
 
 using namespace std;
@@ -107,7 +108,7 @@ void printMatrix(double** matrix, int n) {
     }
 }
 
-void printMatrix_vector(vector<vector<double>> matrix, int n) {
+void printMatrix(vector<vector<double>> matrix, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             std::cout << matrix[i][j] << " ";
@@ -133,7 +134,7 @@ void check_result(double** A, vector<vector<double>> inverse_matr, vector<vector
     vector<vector<double>> new_E(n, vector<double>(n));
 
     cout << "The inverse matrix A^(-1): \n";
-    printMatrix_vector(inverse_matr, n);
+    printMatrix(inverse_matr, n);
     cout << "Matrix A: \n";
     printMatrix(A, n);
 
@@ -147,12 +148,11 @@ void check_result(double** A, vector<vector<double>> inverse_matr, vector<vector
         }
     }
 
-
     cout << "The new unit matrix: \n";
-    printMatrix_vector(new_E, n);
+    printMatrix(new_E, n);
 
-    cout << "Unit matrix: \n";
-    printMatrix_vector(E, n);
+    cout << "The unit matrix: \n";
+    printMatrix(E, n);
 }
 
 void inversed(double** A, int n, double** L, double** U, vector<double> b) {
@@ -177,7 +177,7 @@ void inversed(double** A, int n, double** L, double** U, vector<double> b) {
     inverse_matr = trans(inversed_A, n);
 
     cout << "The inverse matrix A^(-1): \n";
-    printMatrix_vector(inverse_matr, n);
+    printMatrix(inverse_matr, n);
 
     check_result(A, inverse_matr, E, n);
 
