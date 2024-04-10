@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <locale>
 
 
 using namespace std;
@@ -35,6 +34,8 @@ x2 = -9
 x3 = 2
 x4 = -5
 */
+
+template<typename T> void printMatrix(T, int);
 
 void LU_decomposition(double** A, int n, double** L, double** U) {
     for (int i = 0; i < n; i++) {
@@ -99,7 +100,7 @@ void determinant(double** upper, int n) {
     cout << "The determinant: \n" << result << '\n';
 }
 
-void printMatrix(double** matrix, int n) {
+template<typename T> void printMatrix(T matrix, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             std::cout << matrix[i][j] << " ";
@@ -108,14 +109,6 @@ void printMatrix(double** matrix, int n) {
     }
 }
 
-void printMatrix(vector<vector<double>> matrix, int n) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            std::cout << matrix[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
 
 vector<vector<double>> trans(vector<vector<double>> mat, int n) {
     vector<vector<double>> trans_mat(n, vector<double>(n));
@@ -135,7 +128,7 @@ void check_result(double** A, vector<vector<double>> inverse_matr, vector<vector
 
     cout << "The inverse matrix A^(-1): \n";
     printMatrix(inverse_matr, n);
-    cout << "Matrix A: \n";
+    cout << "The matrix A: \n";
     printMatrix(A, n);
 
     for (int i = 0; i < n; i++) {
