@@ -256,6 +256,82 @@ pair <matrix, matrix> jacobi(matrix a, double EPS)
     return make_pair(eigenvalue, eigenvector);
 }
 
+double sign(double x)
+{
+    return x > 0 ? 1 : -1;
+}
+
+pair <matrix, matrix> QR(matrix x_matr)
+{
+    int n = x_matr.n;
+    matrix E(n, n);
+
+    for (int i = 0; i < n; i++)
+        E[i][i] = 1;
+
+    matrix q = E;
+    for (int i = 0; i < n - 1; i++)
+    {
+        matrix v(n, 1);
+        double s = 0;
+
+        for (int j = i; j < n; j++)
+            s += x_matr[j][i] * x_matr[j][i];
+        
+        v[i][0] = x_matr[i][i] + sign(x_matr[i][i]) * sqrt(s);
+        
+        for (int j = i + 1; j < n; j++)
+            v[j][0] = x_matr[j][i];
+        
+        matrix h = E - (2.0 / double(transposition(v) * v)) * (v * transposition(v));
+        q = q * h;
+        x_matr = h * x_matr;
+    }
+    return make_pair(q, x_matr);
+}
+
+vector<complex<double>> get_eigenvalues(matrix x_matr, double eps)
+{
+    int n = x_matr.n;
+    vector<complex<double>> prev(n);
+    while (true)
+    {
+        pair <matrix, matrix> p = QR(x_matr);
+        
+        x_matr = p.second * p.first;
+        
+        vector<complex<double>> current;
+        for (int i = 0; i < n; i++)
+        {
+            if (i < n - 1 && abs(x_matr[i + 1][i]) > 1e-9)
+            {
+                double b = -(x_matr[i][i] + x_matr[i + 1][i + 1]);
+                double c = x_matr[i][i] * x_matr[i + 1][i + 1] - x_matr[i][i + 1] * x_matr[i + 1][i];
+                double d = b * b - 4 * c;
+
+                complex<double> isMinus;
+                if (d > 0)
+                    isMinus = complex<double>(1, 0);
+                else
+                    isMinus = complex<double>(0, 1);
+                
+                d = sqrt(abs(d));
+                current.push_back(0.5 * (-b - isMinus * d));
+                current.push_back( 0.5 * (-b + isMinus * d));
+                i++;
+            }
+            else
+                current.push_back(x_matr[i][i]);
+        }
+        bool flag = true;
+        for (int i = 0; i < n; i++)
+            flag = flag && abs(current[i] - prev[i]) < eps;
+        if (flag)
+            break;
+        prev = current;
+    }
+    return prev;
+}
 
 
 int main()
@@ -328,7 +404,20 @@ int main()
         }
         else if (command == 5)
         {
-            cout << "Now this block in development" << endl;
+            ifstream file_input("res/input_1.5.txt");
+            int n;
+            file_input >> n;
+            matrix coeffs(n, n);
+            file_input >> coeffs;
+
+            pair<matrix, matrix> p = QR(coeffs);
+            cout << "QR decomposition:\nQ:\n" << p.first << "\nR:\n" << p.second;
+            
+            vector<complex<double>> v = get_eigenvalues(coeffs, 0.01);
+            cout << "\nEigenvalues:\n";
+            for (int i = 0; i < n; i++)
+                cout << v[i] << ' ';
+            cout << endl << endl;
         } else
             cout << "Sorry, but this command is invalid" << endl << endl;
     }
