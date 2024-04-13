@@ -103,6 +103,29 @@ double det(matrix u, matrix roots)
     return res;
 }
 
+matrix solve_tridiagonal(matrix& a, matrix& b)
+{
+    int n = a.n;
+    vector <double> p(n), q(n);
+    p[0] = -a[0][1] / a[0][0];
+    q[0] = b[0][0] / a[0][0];
+    for (int i = 1; i < n; i++)
+    {
+        if (i != n - 1)
+            p[i] = -a[i][i + 1] / (a[i][i] + a[i][i - 1] * p[i - 1]);
+        else
+            p[i] = 0;
+        q[i] = (b[i][0] - a[i][i - 1] * q[i - 1]) / (a[i][i] + a[i][i - 1] * p[i - 1]);
+    }
+    matrix res(n, 1);
+    res[n - 1][0] = q[n - 1];
+    for (int i = n - 2; i >= 0; i--)
+        res[i][0] = p[i] * res[i + 1][0] + q[i];
+    return res;
+}
+
+
+
 
 int main()
 {
@@ -138,7 +161,15 @@ int main()
         }
         else if (command == 2)
         {
-            cout << "Now this block in development" << endl;
+            ifstream file_input("res/input_1.2.txt");
+            int n;
+            file_input >> n; 
+            
+            matrix coeffs(n, n), roots(n, 1);
+            file_input >> coeffs >> roots;
+
+            cout << "Equations solving:\n" << solve_tridiagonal(coeffs, roots);
+            cout << endl << endl;
         }  
         else if (command == 3)
         {
