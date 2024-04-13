@@ -103,19 +103,19 @@ double det(matrix u, matrix roots)
     return res;
 }
 
-matrix solve_tridiagonal(matrix& a, matrix& b)
+matrix solve_tridiagonal(matrix& x_matr, matrix& y_vect)
 {
-    int n = a.n;
+    int n = x_matr.n;
     vector <double> p(n), q(n);
-    p[0] = -a[0][1] / a[0][0];
-    q[0] = b[0][0] / a[0][0];
+    p[0] = -x_matr[0][1] / x_matr[0][0];
+    q[0] = y_vect[0][0] / x_matr[0][0];
     for (int i = 1; i < n; i++)
     {
         if (i != n - 1)
-            p[i] = -a[i][i + 1] / (a[i][i] + a[i][i - 1] * p[i - 1]);
+            p[i] = -x_matr[i][i + 1] / (x_matr[i][i] + x_matr[i][i - 1] * p[i - 1]);
         else
             p[i] = 0;
-        q[i] = (b[i][0] - a[i][i - 1] * q[i - 1]) / (a[i][i] + a[i][i - 1] * p[i - 1]);
+        q[i] = (y_vect[i][0] - x_matr[i][i - 1] * q[i - 1]) / (x_matr[i][i] + x_matr[i][i - 1] * p[i - 1]);
     }
     matrix res(n, 1);
     res[n - 1][0] = q[n - 1];
@@ -124,7 +124,85 @@ matrix solve_tridiagonal(matrix& a, matrix& b)
     return res;
 }
 
+double max_el(matrix x_matr)
+{
+    double m = 0;
+    for (int i = 0; i < x_matr.n; i++)
+    {
+        double s = 0;
+        for (int j = 0; j < x_matr.m; j++)
+            s += abs(x_matr[i][j]);
+        if (s > m)
+            m = s;
+    }
+    return m;
+}
 
+matrix iterations(matrix x_matr, matrix y_vect, double EPS, int& iters_count)
+{
+    int n = x_matr.n;
+    matrix x1(n, n), y1(n, 1);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            x1[i][j] = -x_matr[i][j] / x_matr[i][i];
+        x1[i][i] = 0;
+    }
+    for (int i = 0; i < n; i++)
+        y1[i][0] = y_vect[i][0] / x_matr[i][i];
+    matrix x = y1;
+    double m = max_el(x_matr);
+    double cur = m, eps = EPS + 1;
+    iters_count = 0;
+    while (eps > EPS)
+    {
+        matrix prev = x;
+        x = y1 + x1 * x;
+        if (m < 1)
+            eps = cur / (1 - m) * max_el(x - prev);
+        else
+            eps = max_el(x - prev);
+        cur = cur * m;
+        iters_count++;
+    }
+    return x;
+}
+
+matrix seidel(matrix x_matr, matrix y_vect, double EPS, int& iters_count)
+{
+    int n = x_matr.n;
+    matrix x1(n, n), y1(n, 1);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            x1[i][j] = -x_matr[i][j] / x_matr[i][i];
+        x1[i][i] = 0;
+    }
+    for (int i = 0; i < n; i++)
+        y1[i][0] = y_vect[i][0] / x_matr[i][i];
+    matrix x = y1;
+    double m = abs(x_matr);
+    double cur = m, eps = EPS + 1;
+    iters_count = 0;
+    while (eps > EPS)
+    {
+        matrix prev = x;
+        for (int i = 0; i < n; i++)
+        {
+            double cur = y1[i][0];
+            for (int j = 0; j < n; j++)
+                cur += x1[i][j] * x[j][0];
+            x[i][0] = cur;
+        }
+        if (m < 1)
+            eps = cur / (1 - m) * abs(x - prev);
+        else
+            eps = abs(x - prev);
+        cur = cur * m;
+        iters_count++;
+    }
+    return x;
+}
 
 
 int main()
@@ -145,7 +223,8 @@ int main()
         {
             cout << "Thank you for using this program. Come back again!";
             return 0;
-        } else if (command == 1)
+        } 
+        else if (command == 1)
         {
             ifstream file_input("res/input_1.1.txt");
             int n;
@@ -173,7 +252,15 @@ int main()
         }  
         else if (command == 3)
         {
-            cout << "Now this block in development" << endl;
+            ifstream file_input("res/input_1.3.txt");
+            int n;
+            file_input >> n;
+            matrix coeffs(n, n), roots(n, 1);
+            file_input >> coeffs >> roots;
+            
+            int iters_count = 0;
+            cout << "Simple iterations method:\n" << iterations(coeffs, roots, 0.01, iters_count) << "Number of iterations: " << iters_count << endl;
+            cout << "\nSeidel's method:\n" << seidel(coeffs, roots, 0.01, iters_count) << "Number of iterations: " << iters_count << endl << endl << endl;
         }
         else if (command == 4)
         {
