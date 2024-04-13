@@ -205,6 +205,59 @@ matrix seidel(matrix x_matr, matrix y_vect, double EPS, int& iters_count)
 }
 
 
+pair <matrix, matrix> jacobi(matrix a, double EPS)
+{
+    int n = a.n;
+    double eps = EPS + 1;
+
+    matrix eigenvector(n, n);
+    for (int i = 0; i < n; i++)
+        eigenvector[i][i] = 1;
+    
+    while (eps > EPS)
+    {
+        int cur_i = 1, cur_j = 0;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < i; j++)
+                if (abs(a[cur_i][cur_j]) < abs(a[i][j]))
+                {
+                    cur_i = i;
+                    cur_j = j;
+                }
+        }
+        matrix u(n, n);
+        double phi = 3.14 / 4;
+        if (abs(a[cur_i][cur_i] - a[cur_j][cur_j]) > 1e-9)
+            phi = 0.5 * atan((2 * a[cur_i][cur_j]) / (a[cur_i][cur_i] - a[cur_j][cur_j]));
+        for (int i = 0; i < n; i++)
+            u[i][i] = 1;
+
+        u[cur_j][cur_i] = sin(phi);
+        u[cur_i][cur_j] = -sin(phi);
+        u[cur_i][cur_i] = cos(phi);
+        u[cur_j][cur_j] = cos(phi);
+        
+        eigenvector = eigenvector * u;
+        a = transposition(u) * a * u;
+        eps = 0;
+        
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < i; j++)
+                eps += a[i][j] * a[i][j];
+
+        eps = sqrt(eps);
+    }
+
+    matrix eigenvalue(n, 1);
+    for (int i = 0; i < n; i++)
+        eigenvalue[i][0] = a[i][i];
+    
+    return make_pair(eigenvalue, eigenvector);
+}
+
+
+
 int main()
 {
     cout << "If you want to change input data, open \"res\" directory and and change the data in the file of the corresponding task" << endl;
@@ -264,7 +317,14 @@ int main()
         }
         else if (command == 4)
         {
-            cout << "Now this block in development" << endl;
+            ifstream file_input("res/input_1.4.txt");
+            int n;
+            file_input >> n;
+            matrix coeffs(n, n);
+            file_input >> coeffs;
+
+            pair <matrix, matrix> p = jacobi(coeffs, 0.01);
+            cout << "Eigenvalues:\n" << p.first << "\nEigenvectors:\n" << p.second << endl << endl;
         }
         else if (command == 5)
         {
