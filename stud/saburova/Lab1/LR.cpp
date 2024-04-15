@@ -2,7 +2,7 @@
 #include <vector>
 #include <ccomplex>
 #include <fstream>
-#include "matrix.h"
+#include "matrix.cpp"
 
 using namespace std;
 
