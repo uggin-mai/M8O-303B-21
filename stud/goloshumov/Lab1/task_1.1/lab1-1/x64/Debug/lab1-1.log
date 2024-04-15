@@ -1,9 +1,0 @@
-﻿  lab1-1.c
-C:\Users\user\Downloads\lab1 (1)\lab1-1\lab1-1\lab1-1.c(60,19): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\user\Downloads\lab1 (1)\lab1-1\lab1-1\lab1-1.c(93,19): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\user\Downloads\lab1 (1)\lab1-1\lab1-1\lab1-1.c(97,19): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\user\Downloads\lab1 (1)\lab1-1\lab1-1\lab1-1.c(113,19): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\user\Downloads\lab1 (1)\lab1-1\lab1-1\lab1-1.c(115,23): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\user\Downloads\lab1 (1)\lab1-1\lab1-1\lab1-1.c(154,38): warning C4020: print_matrix: слишком много фактических параметров
-C:\Users\user\Downloads\lab1 (1)\lab1-1\lab1-1\lab1-1.c(135,9): warning C4101: i: неиспользованная локальная переменная
-  lab1-1.vcxproj -> C:\Users\user\Downloads\lab1 (1)\lab1-1\x64\Debug\lab1-1.exe
