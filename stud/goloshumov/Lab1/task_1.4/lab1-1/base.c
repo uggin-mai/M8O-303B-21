@@ -1,7 +1,7 @@
 #include "read.h"
 #include <stdlib.h>
 
-// Создание новой матрицы нулевого размера и пустыми данными
+
 Matrix* create_matrix(void) {
     Matrix* new_matrix = (Matrix*)malloc(sizeof(Matrix));
     new_matrix->width = new_matrix->height = 0;
@@ -9,7 +9,7 @@ Matrix* create_matrix(void) {
     return new_matrix;
 }
 
-// Удаление содержимого матрицы
+
 void remove_matrix(Matrix* matrix) {
     if (!matrix)
         return;
@@ -20,7 +20,7 @@ void remove_matrix(Matrix* matrix) {
     matrix->height = matrix->width = 0;
 }
 
-// Изменение размера матрицы - новые элементы - 0
+
 void resize_matrix(Matrix* matrix, const int height, const int width) {
     if (height > 0) {
         matrix->data = (double**) realloc (matrix->data, sizeof(double*) * height);
@@ -42,7 +42,7 @@ void resize_matrix(Matrix* matrix, const int height, const int width) {
         matrix->height = height;
 }
 
-// Вывод матрицы в файл 
+
 void print_matrix(Matrix* matrix, FILE* stream) {
     int i, j;
     if (!matrix->data)
@@ -56,7 +56,6 @@ void print_matrix(Matrix* matrix, FILE* stream) {
     fprintf(stream, "size: %d x %d\n", matrix->height, matrix->width);
 }
 
-//Чтение матрицы из файла
 void scan_matrix(Matrix* matrix, FILE* stream) {
     int c = 0;
     float a;
@@ -77,7 +76,7 @@ void scan_matrix(Matrix* matrix, FILE* stream) {
     }
 }
 
-// Перемножение матриц
+
 Matrix* multiplication(Matrix* A, Matrix* B) {
     Matrix* result = create_matrix();
     int i, j, k;
@@ -91,7 +90,7 @@ Matrix* multiplication(Matrix* A, Matrix* B) {
     return result;
 }
 
-// Перемена двух строк
+
 void matrix_exchange_strings(Matrix* matrix, int i1, int i2) {
     double temp;
     for (int j = 0; j < matrix->width; j++) {
@@ -101,7 +100,7 @@ void matrix_exchange_strings(Matrix* matrix, int i1, int i2) {
     }
 }
 
-// Перемена двух столбцов
+
 void matrix_exchange_columns(Matrix* matrix, int j1, int j2) {
     double temp;
     for (int i = 0; i < matrix->width; i++) {
@@ -111,7 +110,7 @@ void matrix_exchange_columns(Matrix* matrix, int j1, int j2) {
     }
 }
 
-// Транспонирование матрицы 
+
 Matrix* matrix_transposition(Matrix* matrix) {
     Matrix* result;
     int i, j;

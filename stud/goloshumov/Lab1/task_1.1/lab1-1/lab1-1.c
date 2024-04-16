@@ -7,12 +7,9 @@ static inline double absolute(const double a) {
     return a > 0 ? a : -a;
 }
 
-//LU-разложение квадратной матрицы
-// L верхнетреугольна€ матрица, U нижнетреугольна€ матрица, P матрица перестановок 
 Matrix** LU_decomposition(Matrix* matrix) {
     int size = matrix->height, max;
     Matrix** LUP = (Matrix**)malloc(sizeof(Matrix*) * 3);
-    // »нициализаци€ матриц L и P как единичных в матрицу U копируетс€ исходна€ матрица 
     for (int i = 0; i < 3; i++) {
         LUP[i] = create_matrix();
         resize_matrix(LUP[i], size, size);
@@ -25,7 +22,7 @@ Matrix** LU_decomposition(Matrix* matrix) {
         for (int j = 0; j < size; j++)
             LUP[1]->data[i][j] = matrix->data[i][j];
 
-    // јлгоритм LU разложени€ 
+    
     for (int j = 0; j < size; j++) {
         max = j;
         for (int i = j + 1; i < size; i++)
@@ -44,7 +41,7 @@ Matrix** LU_decomposition(Matrix* matrix) {
     return LUP;
 }
 
-// ¬ычисление корн€ уравнени€ на основе готового LU разложени€
+
 Matrix* LU_solve(Matrix** LUP, Matrix* vector) {
     Matrix* result;
     int i, j;
@@ -62,7 +59,7 @@ Matrix* LU_solve(Matrix** LUP, Matrix* vector) {
     return result;
 }
 
-// ћетод √аусса, основанный на LU разложение матрицы 
+
 Matrix* gauss_method(Matrix* matrix, Matrix* vector) {
     Matrix** LUP, * result;
     int i;
@@ -76,7 +73,7 @@ Matrix* gauss_method(Matrix* matrix, Matrix* vector) {
     return result;
 }
 
-// ¬ычисление определител€ матрицы на основе LU разложени€.
+
 double determinant(Matrix* matrix) {
     Matrix** LUP = LU_decomposition(matrix);
     int i, j = 0;
@@ -92,7 +89,7 @@ double determinant(Matrix* matrix) {
     return det;
 }
 
-// ќбращение матрицы методом √аусса 
+
 Matrix* matrix_inversion(Matrix* matrix) {
     Matrix** LUP = LU_decomposition(matrix), * inverse, * right_part, * temp;
     int i, j;

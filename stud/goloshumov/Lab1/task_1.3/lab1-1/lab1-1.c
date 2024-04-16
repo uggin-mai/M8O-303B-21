@@ -8,7 +8,7 @@ int SEIDEL = 0;
 static inline double absolute(const double a) {
     return a > 0 ? a : -a;
 }
-// Норма матрицы.
+
 double matrix_norm(Matrix* matrix) {
     double sum = 0, norm = 0;
     int i, j;
@@ -23,12 +23,12 @@ double matrix_norm(Matrix* matrix) {
     return norm;
 }
 
-// Подсчет априорной оценки итераций
+
 int estimation_of_number_of_iteration(double eps, double a, double b) {
     return (int)(log(eps * (1 - a) / b) / log(a));
 }
 
-// Вычисление оценки ошибки итерационного метода 
+
 double error(Matrix* vector_prev, Matrix* vector_cur, double alpha_norm) {
     int i;
     double epsilon_k;
@@ -45,7 +45,7 @@ double error(Matrix* vector_prev, Matrix* vector_cur, double alpha_norm) {
     return epsilon_k;
 }
 
-// Метод Зейделя 
+
 Matrix* seidel_method(Matrix* alpha, Matrix* betta, double epsilon) {
     Matrix* current, * previous;
     double alpha_norm = matrix_norm(alpha), err = epsilon + 1;
@@ -76,7 +76,7 @@ Matrix* seidel_method(Matrix* alpha, Matrix* betta, double epsilon) {
     return current;
 }
 
-// Метод Якоби 
+
 Matrix* jacobi_method(Matrix* alpha, Matrix* betta, double epsilon) {
     Matrix* current, * previous;
     double alpha_norm = matrix_norm(alpha), err = epsilon + 1;
@@ -110,7 +110,6 @@ Matrix* jacobi_method(Matrix* alpha, Matrix* betta, double epsilon) {
     return current;
 }
 
-// Метод простых итераций 
 Matrix* simple_iteration_method(Matrix* matrix, Matrix* vector, double epsilon) {
     Matrix* alpha, * betta, * result;
     double norm;
@@ -124,7 +123,7 @@ Matrix* simple_iteration_method(Matrix* matrix, Matrix* vector, double epsilon) 
             fprintf(stderr, "Singular matrix\n");
             return NULL;
         }
-    // итерационная матрица и вектор
+
     alpha = create_matrix();
     resize_matrix(alpha, matrix->height, matrix->width);
     betta = create_matrix();

@@ -10,7 +10,7 @@ static inline sign(const double a) {
     return a > 0 ? 1 : (a < 0 ? -1 : 0);
 }
 
-// QR разложение квадратной матрицы
+
 Matrix** QR_decomposition(Matrix* matrix) {
     Matrix** QR, * vector, * temp, * temp2;
     int i, j, k;
@@ -75,7 +75,7 @@ Matrix** QR_decomposition(Matrix* matrix) {
     return QR;
 }
 
-// Критерий остановки QR алгоритма с учетом возможных комплексных значений 
+
 int stop_criterion(Matrix* matrix, double epsilon) {
     int mark = 0, i, j;
 
@@ -94,8 +94,7 @@ int stop_criterion(Matrix* matrix, double epsilon) {
     return 1;
 }
 
-// QR алгоритм поиска собственных значений матрицы.
-// Действительная часть в первом столбце, мнимая - во втором 
+
 Matrix** QR_algorithm(Matrix* matrix, double epsilon) {
     Matrix** QR, * lambda;
     int step, i, j;

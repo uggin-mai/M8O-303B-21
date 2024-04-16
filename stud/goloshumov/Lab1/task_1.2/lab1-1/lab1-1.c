@@ -6,7 +6,7 @@ static inline double absolute(double a) {
     return a > 0 ? a : -a;
 }
 
-// ћетод прогонки 
+
 Matrix* tridiagonal_matrix_algorithm(Matrix* matrix, Matrix* vector) {
     Matrix* PQ, * result;
     int i;
@@ -18,7 +18,7 @@ Matrix* tridiagonal_matrix_algorithm(Matrix* matrix, Matrix* vector) {
     resize_matrix(PQ, matrix->height - 1, 2);
     result = create_matrix();
     resize_matrix(result, matrix->height, 1);
-    // ѕроверка достаточных условий, инициализаци€ начальных данных дл€ пр€мого хода
+
     PQ->data[0][0] = -matrix->data[0][2] / matrix->data[0][1];
     PQ->data[0][1] = vector->data[0][0] / matrix->data[0][1];
     if (absolute(matrix->data[0][1]) < absolute(matrix->data[0][2]) ||
@@ -26,7 +26,7 @@ Matrix* tridiagonal_matrix_algorithm(Matrix* matrix, Matrix* vector) {
         fprintf(stderr, "Singular matrix\n");
         return NULL;
     }
-    // ѕр€мой ход и проверка достаточных условий
+
     for (i = 1; i < PQ->height; i++) {
         if (absolute(matrix->data[i][1]) < absolute(matrix->data[i][0]) + absolute(matrix->data[i][2])) {
             fprintf(stderr, "Singular matrix\n");
@@ -36,7 +36,7 @@ Matrix* tridiagonal_matrix_algorithm(Matrix* matrix, Matrix* vector) {
         PQ->data[i][0] = -matrix->data[i][2] / temp;
         PQ->data[i][1] = (vector->data[i][0] - matrix->data[i][0] * PQ->data[i - 1][1]) / temp;
     }
-    // ќбратный ход
+
     i = result->height - 1;
     result->data[i][0] = (vector->data[i][0] - matrix->data[i][0] * PQ->data[i - 1][1]) /
         (matrix->data[i][0] * PQ->data[i - 1][0] + matrix->data[i][1]);

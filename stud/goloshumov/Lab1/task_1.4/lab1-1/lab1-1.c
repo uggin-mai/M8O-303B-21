@@ -7,7 +7,7 @@ static inline double absolute(const double a) {
     return a > 0 ? a : -a;
 }
 
-// —оздание матрицы поворота на угол phi
+
 Matrix* create_rotation_matrix(unsigned int size, unsigned int l, unsigned int m, double phi) {
     Matrix* rotate;
     int i;
@@ -22,7 +22,7 @@ Matrix* create_rotation_matrix(unsigned int size, unsigned int l, unsigned int m
     return rotate;
 }
 
-// ќценивание ошибки вычислений в методе вращений якоби дл€ симметричных матриц
+
 double error(Matrix* matrix) {
     int i, j;
     double err = 0;
@@ -34,7 +34,7 @@ double error(Matrix* matrix) {
     return sqrt(err);
 }
 
-// ћетод вращений якоби.
+
 Matrix* rotation_method(Matrix* matrix, Matrix** lambda, double epsilon) {    
     int i, j, i_max, j_max, step;
     double max = 0, err = epsilon + 1;
