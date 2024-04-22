@@ -1,6 +1,6 @@
 
 #include <vector>
-#include <iostream>
+
 #ifndef LAB1_1_MATRIX_H
 
 typedef    std::vector<std::vector<double>> matrix;
