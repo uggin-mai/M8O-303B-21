@@ -2,8 +2,20 @@
 #include <iostream>
 #include <vector>
 
-
-
+1.
+begin try
+declare @var int = 2
+print @Var
+        END TRY
+        begin catch
+print @Var
+        END CATCH
+2.
+if 1 = 1begin
+declare @var int = 2
+print @Var
+        END
+print @Var
 int main() {
 
     matrix A{
