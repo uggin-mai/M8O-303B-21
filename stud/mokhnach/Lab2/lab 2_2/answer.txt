@@ -1,0 +1,6 @@
+===Newton method===
+Iterations number: 6
+Roots:
+1.70908 
+1.80825 
+
