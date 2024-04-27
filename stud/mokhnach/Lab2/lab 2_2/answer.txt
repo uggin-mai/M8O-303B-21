@@ -1,3 +1,9 @@
+===Iterations method===
+Iterations number: 22
+Roots:
+-3.58325 
+-0.888866 
+
 ===Newton method===
 Iterations number: 6
 Roots:

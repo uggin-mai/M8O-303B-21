@@ -206,17 +206,15 @@ matrix Newton_method(matrix X0, double eps, int &iterations) {
 
 matrix Phi(matrix X){
     matrix phi = matrix(2,1);
-    phi[0][0] = 4*X[1][0] - exp(X[0][0]);
-    phi[1][0] =  (1 - pow(X[0][0], 2)/16)*4/X[1][0];
-    // phi[1][0] = (16 - X[1][0]*X[1][0]*4)/X[0][0];
-    // phi[0][0] = (exp(X[0][0]) + X[0][0])/4;
+    phi[0][0] = -pow (16 - X[1][0]*X[1][0]*4, 0.5);
+    phi[1][0] = (exp(X[0][0]) + X[0][0])/4;
     return phi;
 }
 
 matrix Iterations_method(matrix X0, double eps, int &iterations) {
     matrix X1 = matrix(2, 1);
-    X1[0][0] = 1.709; X1[1][0] = 1.808;
-    double q = 0.4;
+    X1[0][0] = -3.5; X1[1][0] = -0.8;
+    double q = 0.1;
     matrix phi = matrix(2, 1);
     matrix diff = X1 - X0;
     do{
@@ -236,10 +234,10 @@ int main() {
     double eps;
     fin >> eps;
     matrix X0_iterations(2,1);
-    cin >> X0_iterations[0][0] >> X0_iterations[1][0];
+    X0_iterations[0][0] = -3.5; X0_iterations[1][0] = -1;
     int iterations_iterations = 0;
     matrix X_iterations = Iterations_method(X0_iterations, eps, iterations_iterations);
-    cout << "===Iterations method===\nIterations number: " << iterations_iterations << "\nRoots:\n" << X_iterations << '\n';
+    fout << "===Iterations method===\nIterations number: " << iterations_iterations << "\nRoots:\n" << X_iterations << '\n';
 
     int iterations_Newton = 0;
     matrix X0_Newton(2,1);
