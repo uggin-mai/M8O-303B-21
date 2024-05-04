@@ -6,7 +6,9 @@
 # https://github.com/actions/labeler
 
 name: Labeler
-on: [pull_request_target]
+on:
+  pull_request_target:
+    branches: [ 'master', 'lab*' ]
 
 jobs:
   label:
@@ -17,4 +19,6 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/labeler@v4
+    - uses: actions/labeler@v5
+      with:
+        sync-labels: true
