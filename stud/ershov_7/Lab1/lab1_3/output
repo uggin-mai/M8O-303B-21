@@ -1,0 +1,15 @@
+Simple iterations method
+Iterations count: 36
+System solution:
+x1 = 11.082807
+x2 = -6.736486
+x3 = -4.381657
+x4 = 2.221310
+
+Seidel method
+Iterations count: 21
+System solution:
+x1 = 11.082807
+x2 = -6.736486
+x3 = -4.381657
+x4 = 2.221310
