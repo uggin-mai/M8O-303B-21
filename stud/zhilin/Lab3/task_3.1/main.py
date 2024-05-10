@@ -23,6 +23,7 @@ def newton_interpolation(x: float, cords: list[tuple[float, float]]) -> float:
     for i in range(1, n):
         for j in range(n-1, i-1, -1):
             coefficients[j] = (coefficients[j]-coefficients[j-1])/(cords[j][0]-cords[j-i][0])
+            
     for i in range(1, n):
         for j in range(i):
             coefficients[i] *= x-cords[j][0]
