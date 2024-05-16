@@ -1,0 +1,6 @@
+===Simple iterations method===
+Iterations number: 49
+Root: 1.057100
+===Newton method===
+Iterations number: 4
+Root: 1.057104
