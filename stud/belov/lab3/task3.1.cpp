@@ -70,6 +70,10 @@ double calculateError(double exactValue, double interpolatedValue) {
 int main() {
     // Задаем точки Xi и значения функции в этих точках Yi
     vector<double> X = { 0, M_PI / 6, 2 * M_PI / 6, 3 * M_PI / 6 };
+    
+    // Для пункта Б просто меняем значения
+    // vector<double> X = { 0, M_PI / 6, 5 * M_PI / 12, M_PI / 2 };
+    
     vector<double> Y;
 
     for (double x : X) {
