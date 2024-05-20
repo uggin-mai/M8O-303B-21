@@ -35,11 +35,12 @@ void methods(double x0, double xk, double& l, double& r, double& m, double& t, d
     }
 }
 
-double RuRoRi(double a, double aa){
-    double RuR = 0;
+// Вычисление погрешности методом Рунге-Ромберга-Ричардсона
+double RuRoRi(double I_h2, double I_h1){
+    double I_wave = 0; // Значение интеграла, уточнённое методом Рунге-Ромберга-Ричардсона на 1 порядок
     double integral = 0.10447;
-    RuR = a -(aa - a)/3;
-    return abs(RuR - integral);
+    I_wave = I_h2 -(I_h1 - I_h2)/3;
+    return abs(I_wave - integral); // Абсолютная погрешность
 }
 
 int main() {
