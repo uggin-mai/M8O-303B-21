@@ -1,0 +1,4 @@
+Newton Method Result:
+x1 = 4.44695, x2 = 0.938303
+Simple Iteration Result:
+x1 = 4.44695, x2 = 0.938303
